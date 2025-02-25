@@ -1,0 +1,46 @@
+.box {
+  height: 700px;
+  width: calc(100% + 240px);
+  margin-left: -120px; /* Смещаем влево */
+  margin-right: -120px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../../assets/images/Picture-min.jpg');
+}
+@media screen and (min-width: 1440px) and (min-resolution: 192dpi) {
+  .backgroundContainer {
+    background-image: url('../../assets/images/Picture@2x-min.jpg');
+  }
+}
+
+.container {
+  padding-top: 436px;
+}
+.title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 72px;
+  padding-bottom: 16px;
+}
+
+.text {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  padding-bottom: 40px;
+}
+
+.button {
+  background-color: #3470ff;
+  color: #ffffff;
+  border-radius: 12px;
+  width: 276px;
+  height: 44px;
+  font-family: Manrope, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+}
