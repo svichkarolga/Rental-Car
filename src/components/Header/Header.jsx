@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Header.module.css';
 import HomePage from '../../pages/HomePage/HomePage';
-import CatalogPage from '../../pages/Catalog/Catalog';
-import CarPage from '../../pages/CarDetails/CarDetails';
+import CatalogPage from '../../pages/CatalogPage/CatalogPage';
+import CarPage from '../../pages/CarDetailsPage/CarDetailsPage';
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(styles.link, isActive && styles.active);
