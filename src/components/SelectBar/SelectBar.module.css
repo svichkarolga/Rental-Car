@@ -4,6 +4,7 @@
   gap: 16px;
   flex-wrap: nowrap;
   justify-content: center;
+  padding: 84px 0 56px;
 }
 
 form {
