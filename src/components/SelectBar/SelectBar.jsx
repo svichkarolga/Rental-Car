@@ -43,11 +43,12 @@ const SelectBar = ({ onSubmit, value }) => {
   };
 
   return (
-    <div>
+    <div className={styles.thumb}>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={styles.box}>
           <label htmlFor="brand">Car brand</label>
           <select
+            className={styles.selectBrand}
             id="brand"
             name="brand"
             value={brand}
@@ -68,9 +69,10 @@ const SelectBar = ({ onSubmit, value }) => {
           </select>
         </div>
 
-        <div>
+        <div className={styles.box}>
           <label htmlFor="rentalPrice">Price/ 1 hour</label>
           <select
+            className={styles.selectPrice}
             id="rentalPrice"
             name="rentalPrice"
             value={rentalPrice}
@@ -88,27 +90,32 @@ const SelectBar = ({ onSubmit, value }) => {
           </select>
         </div>
 
-        <div>
+        <div className={styles.box}>
           <label htmlFor="minMileage">Сar mileage / km</label>
-          <input
-            id="minMileage"
-            type="number"
-            value={minMileage}
-            onChange={e => setMinMileage(e.target.value)}
-            placeholder="From"
-          />
+          <div className={styles.mileageWrapper}>
+            <input
+              className={styles.MileAge}
+              id="minMileage"
+              type="number"
+              value={minMileage}
+              onChange={e => setMinMileage(e.target.value)}
+              placeholder="From"
+            />
+            <input
+              className={styles.MileAge}
+              id="maxMileage"
+              type="number"
+              value={maxMileage}
+              onChange={e => setMaxMileage(e.target.value)}
+              placeholder="To"
+            />
+          </div>
         </div>
-        <div>
-          <input
-            id="maxMileage"
-            type="number"
-            value={maxMileage}
-            onChange={e => setMaxMileage(e.target.value)}
-            placeholder="To"
-          />
+        <div className={styles.buttonWrapper}>
+          <button className={styles.button} type="submit">
+            Search
+          </button>
         </div>
-
-        <button type="submit">Search</button>
       </form>
     </div>
   );

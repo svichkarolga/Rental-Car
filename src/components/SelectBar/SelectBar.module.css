@@ -1,0 +1,88 @@
+.thumb {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.box label {
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: #8d929a;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.selectBrand,
+.selectPrice {
+  width: 200px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #f7f7f7;
+  color: #101828;
+  font-size: 16px;
+  border: none;
+  padding: 0 12px;
+}
+
+.mileageWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.MileAge {
+  width: 160px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  border: none;
+  font-size: 16px;
+  padding-left: 24px;
+}
+
+.MileAge:first-child {
+  border-radius: 12px 0 0 12px;
+}
+.MileAge:last-child {
+  border-radius: 0 12px 12px 0;
+}
+.mileageWrapper input + input {
+  border-left: 1px solid #ccc;
+}
+
+.MileAge::placeholder {
+  color: #101828;
+  font-size: 16px;
+}
+
+.buttonWrapper {
+  padding-top: 24px;
+}
+
+.button {
+  background-color: #3470ff;
+  color: #ffffff;
+  border-radius: 12px;
+  width: 140px;
+  height: 44px;
+  font-family: Manrope, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  border: none;
+}
