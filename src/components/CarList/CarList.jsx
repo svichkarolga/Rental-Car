@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCars } from '../../redux/cars/operations.js';
 import { selectCars } from '../../redux/cars/selectors.js';
 import CarItem from '../CarItem/CarItem.jsx';
+import styles from './CarList.module.css';
 
 const CarList = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,9 @@ const CarList = () => {
 
   return (
     <div>
-      <ul>
+      <ul className={styles.container}>
         {cars.map(car => (
-          <li key={car.id}>
+          <li className={styles.box} key={car.id}>
             <CarItem car={car} onCardClick={() => handleCardClick(car)} />
           </li>
         ))}

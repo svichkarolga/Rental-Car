@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './CarItem.module.css';
 
 const formatAddress = address => {
   const parts = address.split(', ');
@@ -21,24 +22,26 @@ const CarItem = ({
 }) => {
   return (
     <div>
-      <div>
-        <svg width="16" height="15">
-          <use href="/public/icons/LinkedSprite.svg#heart" />
-        </svg>
-        <img src={img} alt={brand} />
+      {/* <svg width="16" height="15">
+        <use href="/public/icons/LinkedSprite.svg#heart" />
+      </svg> */}
+      <img className={styles.picture} src={img} alt={brand} />
+      <div className={styles.boxTitle}>
+        <h7 className={styles.title}>
+          {brand} <span className={styles.span}>{model}</span>, {year}
+        </h7>
+        <p>${rentalPrice}</p>
       </div>
-      <h4>
-        {brand} <span>{model}</span>,{year}
-      </h4>
-      <h4>${rentalPrice}</h4>
-      <p>
-        {formatAddress(address)}|{rentalCompany}
+      <p className={styles.text}>
+        {formatAddress(address)} | {rentalCompany} |
       </p>
-      <p>
-        {type}| {mileage}
+      <p className={styles.text}>
+        {type} | {mileage} km
       </p>
-      <div>
-        <button onClick={() => onCardClick(car)}>Read more</button>
+      <div className={styles.btnBox}>
+        <button className={styles.btn} onClick={() => onCardClick(car)}>
+          Read more
+        </button>
       </div>
     </div>
   );
