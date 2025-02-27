@@ -1,4 +1,5 @@
 import React from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import styles from './CarItem.module.css';
 
 const formatAddress = address => {
@@ -8,7 +9,10 @@ const formatAddress = address => {
 
 const CarItem = ({
   onCardClick,
+  onFavoriteToggle,
+  isFavorite,
   car: {
+    id,
     img,
     brand,
     model,
@@ -21,15 +25,19 @@ const CarItem = ({
   },
 }) => {
   return (
-    <div>
-      {/* <svg width="16" height="15">
-        <use href="/public/icons/LinkedSprite.svg#heart" />
-      </svg> */}
+    <div className={styles.card}>
+      <div className={styles.imageWrapper}>
+        <FavoriteButton
+          carId={id}
+          isFavorite={isFavorite}
+          onFavoriteToggle={onFavoriteToggle}
+        />
+      </div>
       <img className={styles.picture} src={img} alt={brand} />
       <div className={styles.boxTitle}>
-        <h7 className={styles.title}>
+        <h6 className={styles.title}>
           {brand} <span className={styles.span}>{model}</span>, {year}
-        </h7>
+        </h6>
         <p>${rentalPrice}</p>
       </div>
       <p className={styles.text}>

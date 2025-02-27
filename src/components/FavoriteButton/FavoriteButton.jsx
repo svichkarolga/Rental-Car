@@ -1,10 +1,11 @@
-import { ReactComponent as HeartIcon } from '/public/icons/LinkedSprite.svg';
 import styles from './FavoriteButton.module.css';
 
-const FavoriteButton = ({ isFavorite, onToggle }) => {
+const FavoriteButton = ({ isFavorite, onFavoriteToggle }) => {
   return (
-    <button className={styles.favoriteBtn} onClick={onToggle}>
-      <HeartIcon className={isFavorite ? styles.active : styles.inactive} />
+    <button className={styles.favoriteBtn} onClick={onFavoriteToggle}>
+      <svg className={isFavorite ? styles.active : styles.inactive}>
+        <use href="/icons/LinkedSprite.svg#heart"></use>
+      </svg>
     </button>
   );
 };

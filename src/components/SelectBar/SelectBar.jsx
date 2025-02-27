@@ -6,35 +6,10 @@ const SelectBar = ({ onSubmit, value }) => {
   const [rentalPrice, setRentalPrice] = useState('');
   const [minMileage, setMinMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
-  const [favorites, setFavorites] = useState([]);
 
   const mileageData = {
     minMileage: minMileage || null,
     maxMileage: maxMileage || null,
-  };
-
-  // Завантаження збережених обраних автомобілів з localStorage при завантаженні компонента
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setFavorites(savedFavorites);
-  }, []);
-
-  // Збереження обраних автомобілів у localStorage при їх зміні
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  const addToFavorites = () => {
-    const car = {
-      brand,
-      rentalPrice,
-      mileageData: {
-        minMileage: minMileage ? Number(minMileage).toLocaleString() : null,
-        maxMileage: maxMileage ? Number(maxMileage).toLocaleString() : null,
-      },
-    };
-
-    setFavorites(prevFavorites => [...prevFavorites, car]);
   };
 
   const handleSubmit = event => {

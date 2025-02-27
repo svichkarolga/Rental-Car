@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
 
 const Catalog = () => {
-  const handleSearch = data => {
-    console.log('Search data:', data);
+  const [filters, setFilters] = useState({
+    brand: '',
+    rentalPrice: '',
+    minMileage: '',
+    maxMileage: '',
+  });
+
+  const handleSearch = ({ brand, rentalPrice, mileageData }) => {
+    setFilters({
+      brand,
+      rentalPrice,
+      minMileage: mileageData.minMileage,
+      maxMileage: mileageData.maxMileage,
+    });
   };
   return (
     <div>
       <SearchBar onSubmit={handleSearch} />
-      <CarList />
+      <CarList filters={filters} />
     </div>
   );
 };

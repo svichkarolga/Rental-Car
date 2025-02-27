@@ -43,3 +43,14 @@
 .btnBox {
   padding-top: 28px;
 }
+
+.card {
+  position: relative;
+  width: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
