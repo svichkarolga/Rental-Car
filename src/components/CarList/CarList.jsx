@@ -8,7 +8,7 @@ import { selectFavorites } from '../../redux/favorites/selectors.js';
 import CarItem from '../CarItem/CarItem.jsx';
 import styles from './CarList.module.css';
 
-const CarList = ({ filters, page }) => {
+const CarList = ({ filters, page, setTotalPages }) => {
   const dispatch = useDispatch();
   const carsData = useSelector(selectCars);
   const cars = carsData?.cars || [];
@@ -23,9 +23,12 @@ const CarList = ({ filters, page }) => {
             ? action.payload.cars
             : [...prevCars, ...action.payload.cars]
         );
+        if (setTotalPages) {
+          setTotalPages(action.payload.totalPages);
+        }
       }
     });
-  }, [dispatch, page, filters]);
+  }, [dispatch, page, filters, setTotalPages]);
 
   const filteredCars = allCars.filter(car => {
     const matchesBrand = filters.brand ? car.brand === filters.brand : true;
@@ -45,17 +48,8 @@ const CarList = ({ filters, page }) => {
   });
 
   if (!Array.isArray(cars) || cars.length === 0) {
-    return <p>Loading...</p>;
+    return <p>Loading</p>;
   }
-
-  // if (!cars.length) {
-  //   return <p>Loading...</p>;
-  // }
-
-  // const handleCardClick = car => {
-  //   console.log('Clicked car:', car);
-  //   // Здесь можно реализовать открытие модального окна с детальной информацией
-  // };
 
   const handleFavoriteToggle = carId => {
     dispatch(toggleFavorite(carId));
@@ -68,7 +62,6 @@ const CarList = ({ filters, page }) => {
           <li className={styles.box} key={car.id}>
             <CarItem
               car={car}
-              // onCardClick={() => handleCardClick(car)}
               isFavorite={favorites.includes(car.id)}
               onFavoriteToggle={() => handleFavoriteToggle(car.id)}
             />

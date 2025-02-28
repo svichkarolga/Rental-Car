@@ -31,25 +31,47 @@ const CarDetails = () => {
         <img className={styles.picture} src={car.img} alt={car.brand} />
       </div>
       <div className={styles.infoBox}>
-        <h2 className={styles.title}>
+        <h2 className={styles.headTitle}>
           {car.brand}, {car.year}
         </h2>
         <div className={styles.addressMileBox}>
-          <img
-            className={styles.svg}
-            src="../../../public/icons/LinkedSprite.svg#map"
-            alt="map"
-          />
-          <p>{formatAddress(car.address)}</p>
-          <p className={styles.mileText}>
-            Mileage:{' '}
+          <svg className={styles.svg} width="16" height="16">
+            <use href="/icons/LinkedSprite.svg#map"></use>
+          </svg>
+          <p className={styles.address}>{formatAddress(car.address)}</p>
+          <p className={styles.text}>
+            Mileage:
             {car.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}km
           </p>
         </div>
+        <p className={styles.price}> ${car.rentalPrice}</p>
+        <p className={styles.text}>{car.description}</p>
+        <div className={styles.container}>
+          <h3 className={styles.title}>Rental Conditions: </h3>
+          <ul className={styles.conditionList}>
+            {car.rentalConditions.map((condition, index) => (
+              <li className={styles.condition} key={index}>
+                <svg className={styles.svgCircle} width="16" height="16">
+                  <use href="/icons/LinkedSprite.svg#check-circle"></use>
+                </svg>
+                {condition}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.container}>
+          <h3 className={styles.title}>Car Specifications:</h3>
+          <div>
+            <svg width="16" height="16">
+              <use href="/icons/LinkedSprite.svg#calendar"></use>
+            </svg>
+            <p className={styles.text}>Year: {car.year}</p>
+          </div>
 
-        <p>Price: ${car.rentalPrice}</p>
-
-        <p>Rental Company: {car.rentalCompany}</p>
+          <p className={styles.text}>Type: {car.type}</p>
+          <p className={styles.text}>Fuel Consumption: {car.fuelConsumption}</p>
+          <p className={styles.text}>Engine Size: {car.engineSize}</p>
+        </div>
       </div>
     </div>
   );
