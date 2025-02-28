@@ -8,50 +8,35 @@ const formatAddress = address => {
   return `${parts[1]} | ${parts[2]}`;
 };
 
-const CarItem = ({
-  // onClick,
-  onFavoriteToggle,
-  isFavorite,
-  car: {
-    id,
-    img,
-    brand,
-    model,
-    year,
-    rentalPrice,
-    address,
-    rentalCompany,
-    type,
-    mileage,
-  },
-}) => {
+const CarItem = ({ onFavoriteToggle, isFavorite, car }) => {
   const navigate = useNavigate();
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <FavoriteButton
-          carId={id}
+          carId={car.id}
           isFavorite={isFavorite}
           onFavoriteToggle={onFavoriteToggle}
         />
       </div>
-      <img className={styles.picture} src={img} alt={brand} />
+      <img className={styles.picture} src={car.img} alt={car.brand} />
       <div className={styles.boxTitle}>
         <h6 className={styles.title}>
-          {brand} <span className={styles.span}>{model}</span>, {year}
+          {car.brand} <span className={styles.span}>{car.model}</span>,{' '}
+          {car.year}
         </h6>
-        <p>${rentalPrice}</p>
+        <p>${car.rentalPrice}</p>
       </div>
       <p className={styles.text}>
-        {formatAddress(address)} | {rentalCompany} |
+        {formatAddress(car.address)} | {car.rentalCompany} |
       </p>
       <p className={styles.text}>
-        {type} | {mileage} km
+        {car.type} | {car.mileage} km
       </p>
       <div className={styles.btnBox}>
         <button
           className={styles.btn}
-          onClick={() => navigate(`/catalog/${id}`)}
+          onClick={() => navigate(`/catalog/${car.id}`, { state: { car } })}
         >
           Read more
         </button>

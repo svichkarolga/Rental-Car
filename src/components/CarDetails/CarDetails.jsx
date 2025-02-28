@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
 import { getCarById } from '../../redux/cars/operations';
-import { selectCars } from '../../redux/cars/selectors';
+import styles from './CarDetail.module.css';
 
 const CarDetails = () => {
-  const { carId } = useParams();
+  const { id } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const cars = useSelector(selectCars);
-  const [car, setCar] = useState(null);
+  const [car, setCar] = useState(location.state?.car || null);
 
   useEffect(() => {
-    dispatch(getCarById({ carId })).then(action => {
-      if (action.payload) {
-        setCar(action.payload);
-      }
-    });
-  }, [dispatch, carId]);
+    if (!car) {
+      dispatch(getCarById({ carId: id })).then(action => {
+        if (action.payload) {
+          setCar(action.payload);
+        }
+      });
+    }
+  }, [dispatch, id, car]);
 
-  if (!car) {
-    return <p>Loading...</p>;
-  }
+  const formatAddress = address => {
+    const parts = address.split(', ');
+    return `${parts[1]} , ${parts[2]}`;
+  };
 
   return (
-    <div>
-      <h1>
-        {car.brand} {car.model}
-      </h1>
-      <img src={car.img} alt={car.brand} />
-      <p>Year: {car.year}</p>
-      <p>Price: ${car.rentalPrice}</p>
-      <p>Mileage: {car.mileage} km</p>
-      <p>Location: {car.address}</p>
-      <p>Rental Company: {car.rentalCompany}</p>
+    <div className={styles.parentBox}>
+      <div className={styles.boxImgForm}>
+        <img className={styles.picture} src={car.img} alt={car.brand} />
+      </div>
+      <div className={styles.infoBox}>
+        <h2 className={styles.title}>
+          {car.brand}, {car.year}
+        </h2>
+        <div className={styles.addressMileBox}>
+          <img
+            className={styles.svg}
+            src="../../../public/icons/LinkedSprite.svg#map"
+            alt="map"
+          />
+          <p>{formatAddress(car.address)}</p>
+          <p className={styles.mileText}>
+            Mileage:{' '}
+            {car.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}km
+          </p>
+        </div>
+
+        <p>Price: ${car.rentalPrice}</p>
+
+        <p>Rental Company: {car.rentalCompany}</p>
+      </div>
     </div>
   );
 };
