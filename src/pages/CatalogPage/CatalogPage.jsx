@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
+import LoadMoreBtn from '../../LoadMoreBTN/LoadMoreBtn';
 
 const Catalog = () => {
   const [filters, setFilters] = useState({
@@ -9,6 +10,7 @@ const Catalog = () => {
     minMileage: '',
     maxMileage: '',
   });
+  const [page, setPage] = useState(1);
 
   const handleSearch = ({ brand, rentalPrice, mileageData }) => {
     setFilters({
@@ -18,10 +20,16 @@ const Catalog = () => {
       maxMileage: mileageData.maxMileage,
     });
   };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
   return (
     <div>
       <SearchBar onSubmit={handleSearch} />
-      <CarList filters={filters} />
+      <CarList filters={filters} page={page} />
+      <LoadMoreBtn onClick={handleLoadMore} />
     </div>
   );
 };

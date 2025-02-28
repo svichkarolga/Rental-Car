@@ -14,7 +14,7 @@ const Header = () => {
     <div className={styles.container}>
       <nav className={styles.nav}>
         <NavLink to="/" className={buildLinkClass}>
-          <img src="/public/logo/Logo.svg" alt="Logo" />
+          <img src="/logo/Logo.svg" alt="Logo" />
         </NavLink>
         <div className={styles.box}>
           <NavLink to="/" className={buildLinkClass}>

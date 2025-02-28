@@ -37,7 +37,7 @@ form {
   color: #101828;
   font-size: 16px;
   border: none;
-  padding: 0 12px;
+  padding-right: 12px;
 }
 
 .mileageWrapper {
@@ -86,4 +86,14 @@ form {
   font-size: 16px;
   line-height: 32px;
   border: none;
+}
+
+.button:hover {
+  background-color: #0b44cd;
+  transform: scale(1.03);
+}
+
+.MileAge::placeholder {
+  color: gray; /* или любой другой цвет, подходящий под ваш стиль */
+  opacity: 1; /* Полная непрозрачность, так как некоторые браузеры делают placeholder полупрозрачным */
 }

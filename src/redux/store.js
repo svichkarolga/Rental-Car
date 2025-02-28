@@ -34,7 +34,6 @@ export const store = configureStore({
   reducer: {
     cars: persistedCarsReducer,
     favorites: persistedFavoritesReducer,
-    // filters: filtersReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
