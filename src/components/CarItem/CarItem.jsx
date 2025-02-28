@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import styles from './CarItem.module.css';
 
@@ -8,7 +9,7 @@ const formatAddress = address => {
 };
 
 const CarItem = ({
-  onCardClick,
+  // onClick,
   onFavoriteToggle,
   isFavorite,
   car: {
@@ -24,6 +25,7 @@ const CarItem = ({
     mileage,
   },
 }) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -47,7 +49,10 @@ const CarItem = ({
         {type} | {mileage} km
       </p>
       <div className={styles.btnBox}>
-        <button className={styles.btn} onClick={() => onCardClick(car)}>
+        <button
+          className={styles.btn}
+          onClick={() => navigate(`/catalog/${id}`)}
+        >
           Read more
         </button>
       </div>

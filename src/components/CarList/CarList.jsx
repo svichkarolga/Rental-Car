@@ -48,10 +48,14 @@ const CarList = ({ filters, page }) => {
     return <p>Loading...</p>;
   }
 
-  const handleCardClick = car => {
-    console.log('Clicked car:', car);
-    // Здесь можно реализовать открытие модального окна с детальной информацией
-  };
+  // if (!cars.length) {
+  //   return <p>Loading...</p>;
+  // }
+
+  // const handleCardClick = car => {
+  //   console.log('Clicked car:', car);
+  //   // Здесь можно реализовать открытие модального окна с детальной информацией
+  // };
 
   const handleFavoriteToggle = carId => {
     dispatch(toggleFavorite(carId));
@@ -64,7 +68,7 @@ const CarList = ({ filters, page }) => {
           <li className={styles.box} key={car.id}>
             <CarItem
               car={car}
-              onCardClick={() => handleCardClick(car)}
+              // onCardClick={() => handleCardClick(car)}
               isFavorite={favorites.includes(car.id)}
               onFavoriteToggle={() => handleFavoriteToggle(car.id)}
             />
