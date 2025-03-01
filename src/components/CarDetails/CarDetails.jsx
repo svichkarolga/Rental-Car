@@ -108,7 +108,7 @@ const CarDetails = () => {
               </li>
             ))}
           </ul>
-          <ul className={styles.container3}>
+          <ul>
             {car.functionalities.map((functional, index) => (
               <li className={styles.condition} key={index}>
                 <svg className={styles.svgCircle} width="16" height="16">
