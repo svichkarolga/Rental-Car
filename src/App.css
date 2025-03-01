@@ -2,3 +2,61 @@
   padding-left: 120px;
   padding-right: 120px;
 }
+
+.react-datepicker {
+  border: 2px solid #3470ff;
+  border-radius: 10px;
+  width: 320px;
+  height: auto;
+  padding: 10px;
+}
+
+.react-datepicker__header {
+  background: none;
+  border-bottom: 2px solid #3470ff;
+}
+
+.react-datepicker__current-month {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.react-datepicker__navigation {
+  top: 15px;
+  color: #3470ff;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #3470ff;
+  border-width: 3px 3px 0 0;
+}
+
+.react-datepicker__day-name {
+  font-weight: bold;
+  color: #6c757d;
+  width: 36px;
+  height: 36px;
+}
+
+.react-datepicker__day {
+  font-size: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.react-datepicker__day:hover {
+  background-color: rgba(0, 87, 255, 0.2);
+}
+
+.react-datepicker__day--selected {
+  background-color: #3470ff;
+  color: #f7f7f7;
+}
+
+/* Подсветка даты при наведении */
+.react-datepicker__day:hover {
+  background-color: #3470ff;
+  color: white;
+  border-radius: 50%;
+}
