@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
-import LoadMoreBtn from '../../LoadMoreBTN/LoadMoreBtn';
+import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 
 const Catalog = () => {
   const [filters, setFilters] = useState({
