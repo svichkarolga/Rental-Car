@@ -37,9 +37,8 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      immutableCheck: false,
+      serializableCheck: false,
     }),
   devTools: process.env.NODE_ENV === 'development',
 });

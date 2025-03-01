@@ -33,7 +33,7 @@
 
 .react-datepicker__day-name {
   font-weight: bold;
-  color: #6c757d;
+  color: #3470ff;
   width: 36px;
   height: 36px;
 }
@@ -45,18 +45,14 @@
   border-radius: 50%;
 }
 
-.react-datepicker__day:hover {
-  background-color: rgba(0, 87, 255, 0.2);
-}
-
 .react-datepicker__day--selected {
   background-color: #3470ff;
   color: #f7f7f7;
 }
 
-/* Подсветка даты при наведении */
-.react-datepicker__day:hover {
-  background-color: #3470ff;
-  color: white;
-  border-radius: 50%;
+.react-datepicker__day:hover,
+.react-datepicker__day--keyboard-selected:hover {
+  background-color: #3470ff !important;
+  color: white !important;
+  border-radius: 50% !important;
 }

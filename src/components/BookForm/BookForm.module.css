@@ -44,3 +44,8 @@
 .field1::placeholder {
   color: #8d929a;
 }
+
+.error {
+  color: red;
+  padding-bottom: 10px;
+}
