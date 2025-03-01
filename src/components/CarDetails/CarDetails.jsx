@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getCarById } from '../../redux/cars/operations';
+import BookForm from '../BookForm/BookForm';
 import styles from './CarDetail.module.css';
 
 const CarDetails = () => {
@@ -34,6 +35,7 @@ const CarDetails = () => {
           <p className={styles.textForm}>
             Stay connected! We are always ready to help you.
           </p>
+          <BookForm />
         </div>
       </div>
       <div className={styles.infoBox}>
