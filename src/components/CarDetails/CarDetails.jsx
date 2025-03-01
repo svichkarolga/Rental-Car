@@ -29,6 +29,12 @@ const CarDetails = () => {
     <div className={styles.parentBox}>
       <div className={styles.boxImgForm}>
         <img className={styles.picture} src={car.img} alt={car.brand} />
+        <div className={styles.bookForm}>
+          <h3 className={styles.titleForm}>Book your car now</h3>
+          <p className={styles.textForm}>
+            Stay connected! We are always ready to help you.
+          </p>
+        </div>
       </div>
       <div className={styles.infoBox}>
         <h2 className={styles.headTitle}>
@@ -46,7 +52,7 @@ const CarDetails = () => {
         </div>
         <p className={styles.price}> ${car.rentalPrice}</p>
         <p className={styles.text}>{car.description}</p>
-        <div className={styles.container}>
+        <div className={styles.container1}>
           <h3 className={styles.title}>Rental Conditions: </h3>
           <ul className={styles.conditionList}>
             {car.rentalConditions.map((condition, index) => (
@@ -59,18 +65,57 @@ const CarDetails = () => {
             ))}
           </ul>
         </div>
-        <div className={styles.container}>
-          <h3 className={styles.title}>Car Specifications:</h3>
-          <div>
-            <svg width="16" height="16">
+        <div className={styles.container2}>
+          <h3 className={styles.title2}>Car Specifications:</h3>
+          <div className={styles.specBox}>
+            <svg className={styles.svgSpec} width="16" height="16">
               <use href="/icons/LinkedSprite.svg#calendar"></use>
             </svg>
             <p className={styles.text}>Year: {car.year}</p>
           </div>
-
-          <p className={styles.text}>Type: {car.type}</p>
-          <p className={styles.text}>Fuel Consumption: {car.fuelConsumption}</p>
-          <p className={styles.text}>Engine Size: {car.engineSize}</p>
+          <div className={styles.specBox}>
+            <svg className={styles.svgSpec} width="16" height="16">
+              <use href="/icons/LinkedSprite.svg#car"></use>
+            </svg>
+            <p className={styles.text}>Type: {car.type}</p>
+          </div>
+          <div className={styles.specBox}>
+            <svg className={styles.svgSpec} width="16" height="16">
+              <use href="/icons/LinkedSprite.svg#patrol"></use>
+            </svg>
+            <p className={styles.text}>
+              Fuel Consumption: {car.fuelConsumption}
+            </p>
+          </div>
+          <div className={styles.specBox}>
+            <svg className={styles.svgSpec} width="16" height="16">
+              <use href="/icons/LinkedSprite.svg#settings"></use>
+            </svg>
+            <p className={styles.text}>Engine Size: {car.engineSize}</p>
+          </div>
+        </div>
+        <div className={styles.container3}>
+          <h3 className={styles.title}>Accessories and functionalities:</h3>
+          <ul>
+            {car.accessories.map((accessory, index) => (
+              <li className={styles.condition} key={index}>
+                <svg className={styles.svgCircle} width="16" height="16">
+                  <use href="/icons/LinkedSprite.svg#check-circle"></use>
+                </svg>
+                {accessory}
+              </li>
+            ))}
+          </ul>
+          <ul className={styles.container3}>
+            {car.functionalities.map((functional, index) => (
+              <li className={styles.condition} key={index}>
+                <svg className={styles.svgCircle} width="16" height="16">
+                  <use href="/icons/LinkedSprite.svg#check-circle"></use>
+                </svg>
+                {functional}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

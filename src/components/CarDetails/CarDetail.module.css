@@ -56,8 +56,8 @@
   font-size: 20px;
 }
 
-.container {
-  padding-top: 88px;
+.container1 {
+  padding-top: 68px;
 }
 
 .condition {
@@ -70,4 +70,52 @@
 
 .svgCircle {
   margin-right: 8px;
+}
+
+.container2 {
+  padding-top: 110px;
+}
+
+.title2 {
+  font-weight: 600;
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+.specBox {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 16px;
+}
+
+.svgSpec {
+  margin-right: 8px;
+}
+
+.container3 {
+  padding-top: 94px;
+}
+
+.container3 {
+  padding-bottom: 104px;
+}
+
+.bookForm {
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  margin-top: 40px;
+  padding: 32px 32px 0 32px;
+}
+
+.titleForm {
+  font-weight: 600;
+  font-size: 20px;
+  padding-bottom: 8px;
+  text-align: left;
+}
+
+.textForm {
+  font-size: 16px;
+  color: #8d929a;
+  text-align: left;
+  padding-bottom: 24px;
 }
