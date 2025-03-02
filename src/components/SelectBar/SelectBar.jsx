@@ -22,47 +22,57 @@ const SelectBar = ({ onSubmit, value }) => {
       <form onSubmit={handleSubmit}>
         <div className={styles.box}>
           <label htmlFor="brand">Car brand</label>
-          <select
-            className={styles.selectBrand}
-            id="brand"
-            name="brand"
-            value={brand}
-            onChange={e => setBrand(e.target.value)}
-          >
-            <option value="" disabled>
-              Choose a brand
-            </option>
-            <option value="Aston Martin">Aston Martin</option>
-            <option value="Audi">Audi</option>
-            <option value="BMW">BMW</option>
-            <option value="Bentley">Bentley</option>
-            <option value="Buick">Buick</option>
-            <option value="Chevrolet">Chevrolet</option>
-            <option value="Chrysler">Chrysler</option>
-            <option value="GMC">GMC</option>
-            <option value="HUMMER">HUMMER</option>
-          </select>
+          <div className={styles.selectWrapper}>
+            <select
+              className={styles.selectBrand}
+              id="brand"
+              name="brand"
+              value={brand}
+              onChange={e => setBrand(e.target.value)}
+            >
+              <option value="" disabled>
+                Choose a brand
+              </option>
+              <option value="Aston Martin">Aston Martin</option>
+              <option value="Audi">Audi</option>
+              <option value="BMW">BMW</option>
+              <option value="Bentley">Bentley</option>
+              <option value="Buick">Buick</option>
+              <option value="Chevrolet">Chevrolet</option>
+              <option value="Chrysler">Chrysler</option>
+              <option value="GMC">GMC</option>
+              <option value="HUMMER">HUMMER</option>
+            </select>
+            <svg className={styles.arrowIcon}>
+              <use href="/icons/LinkedSprite.svg#arrow-down"></use>
+            </svg>
+          </div>
         </div>
 
         <div className={styles.box}>
           <label htmlFor="rentalPrice">Price/ 1 hour</label>
-          <select
-            className={styles.selectPrice}
-            id="rentalPrice"
-            name="rentalPrice"
-            value={rentalPrice}
-            onChange={e => setRentalPrice(e.target.value)}
-          >
-            <option value="" disabled>
-              Choose a price
-            </option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-            <option value="60">60</option>
-            <option value="70">70</option>
-            <option value="80">80</option>
-          </select>
+          <div className={styles.selectWrapper}>
+            <select
+              className={styles.selectPrice}
+              id="rentalPrice"
+              name="rentalPrice"
+              value={rentalPrice}
+              onChange={e => setRentalPrice(e.target.value)}
+            >
+              <option value="" disabled>
+                Choose a price
+              </option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+            </select>
+            <svg className={styles.arrowIcon}>
+              <use href="/icons/LinkedSprite.svg#arrow-down"></use>
+            </svg>
+          </div>
         </div>
 
         <div className={styles.box}>
