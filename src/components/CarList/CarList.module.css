@@ -12,3 +12,7 @@
 
   width: calc((100% - 96px) / 4);
 }
+
+.infoText {
+  color: #3470ff;
+}

@@ -59,7 +59,7 @@ const CarList = ({ filters, page, setTotalPages }) => {
         {isLoading ? (
           <PropagateLoader color="#3470ff" size={15} />
         ) : (
-          <p>No cars was found</p>
+          <p className={styles.infoText}>No cars was found</p>
         )}
       </div>
     );

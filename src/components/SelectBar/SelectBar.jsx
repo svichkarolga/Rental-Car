@@ -6,6 +6,42 @@ const SelectBar = ({ onSubmit, value }) => {
   const [rentalPrice, setRentalPrice] = useState('');
   const [minMileage, setMinMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isBrandOpen, setIsBrandOpen] = useState(false);
+
+  const brands = [
+    'Aston Martin',
+    'Audi',
+    'BMW',
+    'Bentley',
+    'Buick',
+    'Chevrolet',
+    'Chrysler',
+    'GMC',
+    'HUMMER',
+  ];
+
+  const prices = ['30', '40', '50', '60', '70', '80'];
+
+  const handleBrandSelect = brand => {
+    setBrand(brand);
+    setIsBrandOpen(false);
+  };
+
+  const handlePriceSelect = price => {
+    setRentalPrice(price);
+    setIsDropdownOpen(false);
+  };
+
+  const formatNumber = num => {
+    if (!num) return '';
+    return Number(num).toLocaleString();
+  };
+
+  const handleMileageChange = setter => e => {
+    const value = e.target.value.replace(/\D/g, '');
+    setter(value ? Number(value) : '');
+  };
 
   const mileageData = {
     minMileage: minMileage || null,
@@ -21,88 +57,83 @@ const SelectBar = ({ onSubmit, value }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    resetFilters();
     onSubmit({ brand, rentalPrice, mileageData });
+    resetFilters();
   };
 
   return (
     <div className={styles.thumb}>
       <form onSubmit={handleSubmit}>
         <div className={styles.box}>
-          <label htmlFor="brand">Car brand</label>
-          <div className={styles.selectWrapper}>
-            <select
-              className={styles.selectBrand}
-              id="brand"
-              name="brand"
-              value={brand}
-              onChange={e => setBrand(e.target.value)}
-            >
-              <option value="" disabled>
-                Choose a brand
-              </option>
-              <option value="Aston Martin">Aston Martin</option>
-              <option value="Audi">Audi</option>
-              <option value="BMW">BMW</option>
-              <option value="Bentley">Bentley</option>
-              <option value="Buick">Buick</option>
-              <option value="Chevrolet">Chevrolet</option>
-              <option value="Chrysler">Chrysler</option>
-              <option value="GMC">GMC</option>
-              <option value="HUMMER">HUMMER</option>
-            </select>
+          <label>Car brand</label>
+          <div
+            className={styles.customSelect}
+            onClick={() => setIsBrandOpen(!isBrandOpen)}
+          >
+            {brand || 'Choose a brand'}
             <svg className={styles.arrowIcon}>
               <use href="/icons/LinkedSprite.svg#arrow-down"></use>
             </svg>
           </div>
+
+          {isBrandOpen && (
+            <ul className={styles.dropdownMenu}>
+              {brands.map(b => (
+                <li
+                  key={b}
+                  onClick={() => handleBrandSelect(b)}
+                  className={styles.dropdownItem}
+                >
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={styles.box}>
-          <label htmlFor="rentalPrice">Price/ 1 hour</label>
-          <div className={styles.selectWrapper}>
-            <select
-              className={styles.selectPrice}
-              id="rentalPrice"
-              name="rentalPrice"
-              value={rentalPrice}
-              onChange={e => setRentalPrice(e.target.value)}
-            >
-              <option value="" disabled>
-                {rentalPrice ? `To $${rentalPrice}` : 'Choose a price'}
-              </option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-              <option value="60">60</option>
-              <option value="70">70</option>
-              <option value="80">80</option>
-            </select>
+          <label>Price/ 1 hour</label>
+          <div
+            className={styles.customSelect}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            {rentalPrice ? `To $${rentalPrice}` : 'Choose a price'}
             <svg className={styles.arrowIcon}>
               <use href="/icons/LinkedSprite.svg#arrow-down"></use>
             </svg>
           </div>
+
+          {isDropdownOpen && (
+            <ul className={styles.dropdownMenu}>
+              {prices.map(price => (
+                <li
+                  key={price}
+                  onClick={() => handlePriceSelect(price)}
+                  className={styles.dropdownItem}
+                >
+                  {price}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={styles.box}>
-          <label htmlFor="minMileage">Сar mileage / km</label>
+          <label>Сar mileage / km</label>
           <div className={styles.mileageWrapper}>
             <input
               className={styles.MileAge}
-              id="minMileage"
-              type="number"
-              value={minMileage}
-              onChange={e => setMinMileage(e.target.value)}
+              type="text"
+              value={minMileage ? `From ${formatNumber(minMileage)}` : ''}
+              onChange={handleMileageChange(setMinMileage)}
               placeholder="From"
-              min="0"
             />
             <input
               className={styles.MileAge}
-              id="maxMileage"
-              type="number"
-              value={maxMileage}
-              onChange={e => setMaxMileage(e.target.value)}
+              type="text"
+              value={maxMileage ? `To ${formatNumber(maxMileage)}` : ''}
+              onChange={handleMileageChange(setMaxMileage)}
               placeholder="To"
-              min="0"
             />
           </div>
         </div>
