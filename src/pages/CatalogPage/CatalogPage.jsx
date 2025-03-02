@@ -3,6 +3,7 @@ import SearchBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 import { PropagateLoader } from 'react-spinners';
+import { useLocation } from 'react-router-dom';
 
 const Catalog = () => {
   const [filters, setFilters] = useState({
@@ -14,6 +15,22 @@ const Catalog = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const location = useLocation();
+  const [prevPath, setPrevPath] = useState(location.pathname);
+
+  useEffect(() => {
+    if (prevPath === location.pathname) {
+      setFilters({
+        brand: '',
+        rentalPrice: '',
+        minMileage: '',
+        maxMileage: '',
+      });
+      setPage(1);
+    }
+    setPrevPath(location.pathname);
+  }, [location.key]);
 
   const handleSearch = ({ brand, rentalPrice, mileageData }) => {
     setFilters({
