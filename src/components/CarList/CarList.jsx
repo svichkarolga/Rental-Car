@@ -7,6 +7,7 @@ import { toggleFavorite } from '../../redux/favorites/slice.js';
 import { selectFavorites } from '../../redux/favorites/selectors.js';
 import CarItem from '../CarItem/CarItem.jsx';
 import styles from './CarList.module.css';
+import { PropagateLoader } from 'react-spinners';
 
 const CarList = ({ filters, page, setTotalPages }) => {
   const dispatch = useDispatch();
@@ -14,8 +15,10 @@ const CarList = ({ filters, page, setTotalPages }) => {
   const cars = carsData?.cars || [];
   const favorites = useSelector(selectFavorites);
   const [allCars, setAllCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     dispatch(fetchCars({ page, filters })).then(action => {
       if (action.payload) {
         setAllCars(prevCars =>
@@ -27,8 +30,9 @@ const CarList = ({ filters, page, setTotalPages }) => {
           setTotalPages(action.payload.totalPages);
         }
       }
+      setIsLoading(false);
     });
-  }, [dispatch, page, filters, setTotalPages]);
+  }, [dispatch, page, filters, setTotalPages, setTotalPages]);
 
   const filteredCars = allCars.filter(car => {
     const matchesBrand = filters.brand ? car.brand === filters.brand : true;
@@ -48,7 +52,17 @@ const CarList = ({ filters, page, setTotalPages }) => {
   });
 
   if (!Array.isArray(cars) || cars.length === 0) {
-    return <p>Loading</p>;
+    return (
+      <div
+        style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}
+      >
+        {isLoading ? (
+          <PropagateLoader color="#3470ff" size={15} />
+        ) : (
+          <p>No cars was found</p>
+        )}
+      </div>
+    );
   }
 
   const handleFavoriteToggle = carId => {

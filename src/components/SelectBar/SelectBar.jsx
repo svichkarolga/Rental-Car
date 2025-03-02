@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './SelectBar.module.css';
 
 const SelectBar = ({ onSubmit, value }) => {
@@ -68,7 +68,7 @@ const SelectBar = ({ onSubmit, value }) => {
               onChange={e => setRentalPrice(e.target.value)}
             >
               <option value="" disabled>
-                Choose a price
+                {rentalPrice ? `To $${rentalPrice}` : 'Choose a price'}
               </option>
               <option value="30">30</option>
               <option value="40">40</option>
@@ -93,6 +93,7 @@ const SelectBar = ({ onSubmit, value }) => {
               value={minMileage}
               onChange={e => setMinMileage(e.target.value)}
               placeholder="From"
+              min="0"
             />
             <input
               className={styles.MileAge}
@@ -101,6 +102,7 @@ const SelectBar = ({ onSubmit, value }) => {
               value={maxMileage}
               onChange={e => setMaxMileage(e.target.value)}
               placeholder="To"
+              min="0"
             />
           </div>
         </div>
