@@ -58,8 +58,8 @@ const CarList = ({ filters, page, setTotalPages }) => {
   return (
     <div>
       <ul className={styles.container}>
-        {filteredCars.map(car => (
-          <li className={styles.box} key={car.id}>
+        {filteredCars.map((car, index) => (
+          <li className={styles.box} key={`${car.id}-${index}`}>
             <CarItem
               car={car}
               isFavorite={favorites.includes(car.id)}

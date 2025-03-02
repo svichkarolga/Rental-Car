@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
+import { PropagateLoader } from 'react-spinners';
 
 const Catalog = () => {
   const [filters, setFilters] = useState({
@@ -12,6 +13,7 @@ const Catalog = () => {
   });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = ({ brand, rentalPrice, mileageData }) => {
     setFilters({
@@ -27,23 +29,48 @@ const Catalog = () => {
     setPage(prevPage => prevPage + 1);
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, [filters, page]);
+
   return (
     <div>
       <SearchBar onSubmit={handleSearch} />
-      <CarList filters={filters} page={page} setTotalPages={setTotalPages} />
-      {totalPages && page >= totalPages ? (
-        <p
+      {isLoading ? (
+        <div
           style={{
-            textAlign: 'center',
-            marginTop: '10px',
-            marginBottom: '20px',
-            color: '#3470ff',
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '20px 0',
           }}
         >
-          Sorry, end of the collection!
-        </p>
+          <PropagateLoader color="#3470ff" size={15} />
+        </div>
       ) : (
-        <LoadMoreBtn onClick={handleLoadMore} />
+        <>
+          <CarList
+            filters={filters}
+            page={page}
+            setTotalPages={setTotalPages}
+          />
+          {totalPages && page >= totalPages ? (
+            <p
+              style={{
+                textAlign: 'center',
+                marginTop: '10px',
+                marginBottom: '20px',
+                color: '#3470ff',
+              }}
+            >
+              Sorry, end of the collection!
+            </p>
+          ) : (
+            <LoadMoreBtn onClick={handleLoadMore} />
+          )}
+        </>
       )}
     </div>
   );
