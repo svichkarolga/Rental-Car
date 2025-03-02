@@ -7,6 +7,10 @@ const formatAddress = address => {
   const parts = address.split(', ');
   return `${parts[1]} | ${parts[2]}`;
 };
+const formatMileage = mileage => {
+  if (!mileage) return 'N/A';
+  return new Intl.NumberFormat('en-US').format(mileage).replace(/,/g, ' ');
+};
 
 const CarItem = ({ onFavoriteToggle, isFavorite, car }) => {
   const navigate = useNavigate();
@@ -31,7 +35,7 @@ const CarItem = ({ onFavoriteToggle, isFavorite, car }) => {
         {formatAddress(car.address)} | {car.rentalCompany} |
       </p>
       <p className={styles.text}>
-        {car.type} | {car.mileage} km
+        {car.type} | {formatMileage(car.mileage)} km
       </p>
       <div className={styles.btnBox}>
         <button

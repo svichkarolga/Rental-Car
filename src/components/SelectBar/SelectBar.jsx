@@ -12,8 +12,16 @@ const SelectBar = ({ onSubmit, value }) => {
     maxMileage: maxMileage || null,
   };
 
+  const resetFilters = () => {
+    setBrand('');
+    setRentalPrice('');
+    setMinMileage('');
+    setMaxMileage('');
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
+    resetFilters();
     onSubmit({ brand, rentalPrice, mileageData });
   };
 

@@ -111,7 +111,7 @@ form {
 }
 
 .MileAge::placeholder {
-  color: gray;
+  color: #101828;
 }
 
 select:focus {

@@ -26,6 +26,11 @@ const CarDetails = () => {
     return `${parts[1]} , ${parts[2]}`;
   };
 
+  const formatMileage = mileage => {
+    if (!mileage) return 'N/A';
+    return new Intl.NumberFormat('en-US').format(mileage).replace(/,/g, ' ');
+  };
+
   return (
     <div className={styles.parentBox}>
       <div className={styles.boxImgForm}>
@@ -48,8 +53,7 @@ const CarDetails = () => {
           </svg>
           <p className={styles.address}>{formatAddress(car.address)}</p>
           <p className={styles.text}>
-            Mileage:
-            {car.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}km
+            Mileage: {formatMileage(car.mileage)} km
           </p>
         </div>
         <p className={styles.price}> ${car.rentalPrice}</p>
