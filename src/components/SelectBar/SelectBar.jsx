@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './SelectBar.module.css';
 
 const SelectBar = ({ onSubmit, value }) => {
@@ -8,6 +8,24 @@ const SelectBar = ({ onSubmit, value }) => {
   const [maxMileage, setMaxMileage] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
+  const brandRef = useRef(null);
+  const priceRef = useRef(null);
+
+  const handleClickOutside = event => {
+    if (brandRef.current && !brandRef.current.contains(event.target)) {
+      setIsBrandOpen(false);
+    }
+    if (priceRef.current && !priceRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const brands = [
     'Aston Martin',
@@ -69,6 +87,7 @@ const SelectBar = ({ onSubmit, value }) => {
           <div
             className={styles.customSelect}
             onClick={() => setIsBrandOpen(!isBrandOpen)}
+            ref={brandRef}
           >
             {brand || 'Choose a brand'}
             <svg className={styles.arrowIcon}>
@@ -82,6 +101,7 @@ const SelectBar = ({ onSubmit, value }) => {
                 <li
                   key={b}
                   onClick={() => handleBrandSelect(b)}
+                  ref={priceRef}
                   className={styles.dropdownItem}
                 >
                   {b}
@@ -91,7 +111,7 @@ const SelectBar = ({ onSubmit, value }) => {
           )}
         </div>
 
-        <div className={styles.box}>
+        <div className={styles.box} ref={priceRef}>
           <label>Price/ 1 hour</label>
           <div
             className={styles.customSelect}
