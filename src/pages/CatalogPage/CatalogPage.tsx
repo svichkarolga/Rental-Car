@@ -7,14 +7,19 @@ import { useLocation } from 'react-router-dom';
 import { Cars } from '../../types';
 
 const Catalog: React.FC = () => {
-  const [filters, setFilters] = useState<Partial<Cars>>({
+  const [filters, setFilters] = useState<{
+    brand?: string;
+    rentalPrice?: number;
+    minMileage?: number;
+    maxMileage?: number;
+  }>({
     brand: '',
-    rentalPrice: '',
-    minMileage: null,
-    maxMileage: null,
+    rentalPrice: undefined,
+    minMileage: undefined,
+    maxMileage: undefined,
   });
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
+  const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
@@ -24,9 +29,9 @@ const Catalog: React.FC = () => {
     if (prevPath === location.pathname) {
       setFilters({
         brand: '',
-        rentalPrice: '',
-        minMileage: null,
-        maxMileage: null,
+        rentalPrice: undefined,
+        minMileage: undefined,
+        maxMileage: undefined,
       });
       setPage(1);
     }
@@ -44,9 +49,9 @@ const Catalog: React.FC = () => {
   }) => {
     setFilters({
       brand,
-      rentalPrice,
-      minMileage: mileageData.minMileage,
-      maxMileage: mileageData.maxMileage,
+      rentalPrice: rentalPrice ? Number(rentalPrice) : undefined,
+      minMileage: mileageData.minMileage ?? undefined,
+      maxMileage: mileageData.maxMileage ?? undefined,
     });
     setPage(1);
   };
