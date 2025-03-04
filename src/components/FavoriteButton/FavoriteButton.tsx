@@ -1,6 +1,15 @@
 import styles from './FavoriteButton.module.css';
 
-const FavoriteButton = ({ isFavorite, onFavoriteToggle }) => {
+type FavoriteButtonProp = {
+  carId: string;
+  isFavorite: boolean;
+  onFavoriteToggle: () => void;
+};
+
+const FavoriteButton: React.FC<FavoriteButtonProp> = ({
+  isFavorite,
+  onFavoriteToggle,
+}) => {
   return (
     <button className={styles.favoriteBtn} onClick={onFavoriteToggle}>
       <svg className={styles.icon}>

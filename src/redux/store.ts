@@ -13,14 +13,20 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const carsPersistConfig = {
+interface PersistConfig {
+  key: string;
+  storage: typeof storage;
+  whitelist?: string[];
+}
+
+const carsPersistConfig: PersistConfig = {
   key: 'cars',
   storage,
   whitelist: ['items'],
 };
 const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);
 
-const favoritesPersistConfig = {
+const favoritesPersistConfig: PersistConfig = {
   key: 'favorites',
   storage,
 };
@@ -44,3 +50,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

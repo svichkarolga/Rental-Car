@@ -2,14 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Header.module.css';
-import HomePage from '../../pages/HomePage/HomePage';
-import CatalogPage from '../../pages/CatalogPage/CatalogPage';
-import CarPage from '../../pages/CarDetailsPage/CarDetailsPage';
 
-const buildLinkClass = ({ isActive }) => {
+const buildLinkClass = ({ isActive }: { isActive: boolean }) => {
   return clsx(styles.link, isActive && styles.active);
 };
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>

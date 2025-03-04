@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Location } from 'react-router-dom';
 import { getCarById } from '../../redux/cars/operations';
 import BookForm from '../BookForm/BookForm';
 import styles from './CarDetail.module.css';
+import { AppDispatch, RootState } from '../../redux/store'; // Укажите правильный путь к вашему store
+import { Cars } from '../../types';
 
-const CarDetails = () => {
-  const { id } = useParams();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const [car, setCar] = useState(location.state?.car || null);
+interface LocationState {
+  car?: Cars;
+}
+
+const CarDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation() as Location<LocationState>;
+  const dispatch = useDispatch<AppDispatch>();
+  const [car, setCar] = useState<Cars | null>(location.state?.car || null);
 
   useEffect(() => {
-    if (!car) {
-      dispatch(getCarById({ carId: id })).then(action => {
+    if (!car && id) {
+      dispatch(getCarById(id)).then(action => {
         if (action.payload) {
-          setCar(action.payload);
+          setCar(action.payload as Cars);
         }
       });
     }
   }, [dispatch, id, car]);
 
-  const formatAddress = address => {
+  const formatAddress = (address: string): string => {
     const parts = address.split(', ');
     return `${parts[1]} , ${parts[2]}`;
   };
 
-  const formatMileage = mileage => {
+  const formatMileage = (mileage: number): string => {
     if (!mileage) return 'N/A';
     return new Intl.NumberFormat('en-US').format(mileage).replace(/,/g, ' ');
   };
+
+  if (!car) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.parentBox}>

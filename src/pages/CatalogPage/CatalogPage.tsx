@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from '../../components/SelectBar/SelectBar';
+import SelectBar from '../../components/SelectBar/SelectBar';
 import CarList from '../../components/CarList/CarList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 import { PropagateLoader } from 'react-spinners';
 import { useLocation } from 'react-router-dom';
+import { Cars } from '../../types';
 
-const Catalog = () => {
-  const [filters, setFilters] = useState({
+const Catalog: React.FC = () => {
+  const [filters, setFilters] = useState<Partial<Cars>>({
     brand: '',
     rentalPrice: '',
-    minMileage: '',
-    maxMileage: '',
+    minMileage: null,
+    maxMileage: null,
   });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
@@ -24,15 +25,23 @@ const Catalog = () => {
       setFilters({
         brand: '',
         rentalPrice: '',
-        minMileage: '',
-        maxMileage: '',
+        minMileage: null,
+        maxMileage: null,
       });
       setPage(1);
     }
     setPrevPath(location.pathname);
-  }, [location.key]);
+  }, [location.pathname]);
 
-  const handleSearch = ({ brand, rentalPrice, mileageData }) => {
+  const handleSearch = ({
+    brand,
+    rentalPrice,
+    mileageData,
+  }: {
+    brand: string;
+    rentalPrice: string;
+    mileageData: { minMileage: number | null; maxMileage: number | null };
+  }) => {
     setFilters({
       brand,
       rentalPrice,
@@ -55,7 +64,7 @@ const Catalog = () => {
 
   return (
     <div>
-      <SearchBar onSubmit={handleSearch} />
+      <SelectBar onSubmit={handleSearch} />
       {isLoading ? (
         <div
           style={{

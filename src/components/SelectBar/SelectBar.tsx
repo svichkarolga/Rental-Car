@@ -1,21 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './SelectBar.module.css';
 
-const SelectBar = ({ onSubmit, value }) => {
+type SelectBarProp = {
+  onSubmit: (filters: {
+    brand: string;
+    rentalPrice: string;
+    mileageData: { minMileage: number | null; maxMileage: number | null };
+  }) => void;
+};
+
+const SelectBar: React.FC<SelectBarProp> = ({ onSubmit }) => {
   const [brand, setBrand] = useState('');
-  const [rentalPrice, setRentalPrice] = useState('');
-  const [minMileage, setMinMileage] = useState('');
-  const [maxMileage, setMaxMileage] = useState('');
+  const [rentalPrice, setRentalPrice] = useState<string | ''>('');
+  const [minMileage, setMinMileage] = useState<number | ''>('');
+  const [maxMileage, setMaxMileage] = useState<number | ''>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
-  const brandRef = useRef(null);
-  const priceRef = useRef(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const priceRef = useRef<HTMLDivElement>(null);
+  const liRef = useRef<HTMLLIElement>(null);
 
-  const handleClickOutside = event => {
-    if (brandRef.current && !brandRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (brandRef.current && !brandRef.current.contains(event.target as Node)) {
       setIsBrandOpen(false);
     }
-    if (priceRef.current && !priceRef.current.contains(event.target)) {
+    if (priceRef.current && !priceRef.current.contains(event.target as Node)) {
       setIsDropdownOpen(false);
     }
   };
@@ -41,25 +50,27 @@ const SelectBar = ({ onSubmit, value }) => {
 
   const prices = ['30', '40', '50', '60', '70', '80'];
 
-  const handleBrandSelect = brand => {
+  const handleBrandSelect = (brand: string) => {
     setBrand(brand);
     setIsBrandOpen(false);
   };
 
-  const handlePriceSelect = price => {
+  const handlePriceSelect = (price: string) => {
     setRentalPrice(price);
     setIsDropdownOpen(false);
   };
 
-  const formatNumber = num => {
+  const formatNumber = (num: number | '') => {
     if (!num) return '';
     return Number(num).toLocaleString();
   };
 
-  const handleMileageChange = setter => e => {
-    const value = e.target.value.replace(/\D/g, '');
-    setter(value ? Number(value) : '');
-  };
+  const handleMileageChange =
+    (setter: React.Dispatch<React.SetStateAction<number | ''>>) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value.replace(/\D/g, '');
+      setter(value ? Number(value) : '');
+    };
 
   const mileageData = {
     minMileage: minMileage || null,
@@ -73,7 +84,7 @@ const SelectBar = ({ onSubmit, value }) => {
     setMaxMileage('');
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit({ brand, rentalPrice, mileageData });
     resetFilters();
@@ -101,7 +112,6 @@ const SelectBar = ({ onSubmit, value }) => {
                 <li
                   key={b}
                   onClick={() => handleBrandSelect(b)}
-                  ref={priceRef}
                   className={styles.dropdownItem}
                 >
                   {b}

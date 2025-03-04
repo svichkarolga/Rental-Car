@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCars } from '../../redux/cars/operations.js';
 import { selectCars } from '../../redux/cars/selectors.js';
 import { toggleFavorite } from '../../redux/favorites/slice.js';
 import { selectFavorites } from '../../redux/favorites/selectors.js';
-import CarItem from '../CarItem/CarItem.jsx';
+import CarItem from '../CarItem/CarItem.js';
 import styles from './CarList.module.css';
 import { PropagateLoader } from 'react-spinners';
+import { AppDispatch } from '../../redux/store';
+import { Cars } from '../../types';
 
-const CarList = ({ filters, page, setTotalPages }) => {
-  const dispatch = useDispatch();
+type CarListProp = {
+  filters: {
+    brand?: string;
+    rentalPrice?: number;
+    minMileage?: number;
+    maxMileage?: number;
+  };
+  page: number;
+  setTotalPages: (total: number) => void;
+};
+
+const CarList: React.FC<CarListProp> = ({ filters, page, setTotalPages }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const carsData = useSelector(selectCars);
   const cars = carsData?.cars || [];
   const favorites = useSelector(selectFavorites);
-  const [allCars, setAllCars] = useState([]);
+  const [allCars, setAllCars] = useState<Cars[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -26,13 +38,11 @@ const CarList = ({ filters, page, setTotalPages }) => {
             ? action.payload.cars
             : [...prevCars, ...action.payload.cars]
         );
-        if (setTotalPages) {
-          setTotalPages(action.payload.totalPages);
-        }
+        setTotalPages(action.payload.totalPages);
       }
       setIsLoading(false);
     });
-  }, [dispatch, page, filters, setTotalPages, setTotalPages]);
+  }, [dispatch, page, filters, setTotalPages]);
 
   const filteredCars = allCars.filter(car => {
     const matchesBrand = filters.brand ? car.brand === filters.brand : true;
@@ -65,7 +75,7 @@ const CarList = ({ filters, page, setTotalPages }) => {
     );
   }
 
-  const handleFavoriteToggle = carId => {
+  const handleFavoriteToggle = (carId: string) => {
     dispatch(toggleFavorite(carId));
   };
 

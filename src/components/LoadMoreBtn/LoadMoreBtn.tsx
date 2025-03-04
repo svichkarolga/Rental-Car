@@ -1,7 +1,11 @@
 import React from 'react';
 import styles from './LoadMoreBtn.module.css';
 
-const LoadMoreBtn = ({ onClick }) => {
+type LoadMoreBtn = {
+  onClick: () => void;
+};
+
+const LoadMoreBtn: React.FC<LoadMoreBtn> = ({ onClick }) => {
   return (
     <div className={styles.btnBox}>
       <button className={styles.loadMore} type="button" onClick={onClick}>
