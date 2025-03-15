@@ -23,8 +23,7 @@ type CarListProp = {
 
 const CarList: React.FC<CarListProp> = ({ filters, page, setTotalPages }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const carsData = useSelector(selectCars);
-  const cars = carsData?.cars || [];
+  const cars = useSelector(selectCars); // Убрали .cars
   const favorites = useSelector(selectFavorites);
   const [allCars, setAllCars] = useState<Cars[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,13 +31,14 @@ const CarList: React.FC<CarListProp> = ({ filters, page, setTotalPages }) => {
   useEffect(() => {
     setIsLoading(true);
     dispatch(fetchCars({ page, filters })).then(action => {
-      if (action.payload) {
+      const payload = action.payload as
+        | { cars: Cars[]; totalPages: number }
+        | undefined;
+      if (payload) {
         setAllCars(prevCars =>
-          page === 1
-            ? action.payload.cars
-            : [...prevCars, ...action.payload.cars]
+          page === 1 ? payload.cars : [...prevCars, ...payload.cars]
         );
-        setTotalPages(action.payload.totalPages);
+        setTotalPages(payload.totalPages);
       }
       setIsLoading(false);
     });
@@ -61,7 +61,8 @@ const CarList: React.FC<CarListProp> = ({ filters, page, setTotalPages }) => {
     );
   });
 
-  if (!Array.isArray(cars) || cars.length === 0) {
+  if (cars.length === 0) {
+    // Убрали ненужную проверку Array.isArray
     return (
       <div
         style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}
@@ -69,7 +70,7 @@ const CarList: React.FC<CarListProp> = ({ filters, page, setTotalPages }) => {
         {isLoading ? (
           <PropagateLoader color="#3470ff" size={15} />
         ) : (
-          <p className={styles.infoText}>No cars was found</p>
+          <p className={styles.infoText}>No cars found</p> // Исправил грамматическую ошибку
         )}
       </div>
     );

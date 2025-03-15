@@ -1,13 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchCars, getCarById } from './operations.js';
+import { Cars } from '../../types.js';
+
+interface CarsState {
+  items: Cars[];
+  isLoading: boolean;
+  error: string | null;
+  selectedCar: Cars | null;
+}
+
+const initialState: CarsState = {
+  items: [],
+  isLoading: false,
+  error: null,
+  selectedCar: null,
+};
 
 const carsSlice = createSlice({
   name: 'cars',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState,
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchCars.pending, state => {
@@ -20,7 +32,7 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? 'Unknown error';
       })
       .addCase(getCarById.pending, state => {
         state.error = null;
@@ -30,7 +42,7 @@ const carsSlice = createSlice({
         state.selectedCar = action.payload;
       })
       .addCase(getCarById.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.payload ?? 'Unknown error';
       });
   },
 });

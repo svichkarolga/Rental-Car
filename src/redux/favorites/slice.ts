@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { RootState } from '../store';
 
 const favoritesPersistConfig = {
   key: 'favorites',
@@ -8,7 +9,7 @@ const favoritesPersistConfig = {
 };
 
 const initialState = {
-  favorites: [],
+  favorites: [] as string[],
 };
 
 const favoritesSlice = createSlice({

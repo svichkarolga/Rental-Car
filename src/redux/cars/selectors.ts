@@ -1,3 +1,5 @@
-export const selectCars = state => state.cars.items;
-export const selectError = state => state.cars.error;
-export const selectSelectedCars = state => state.cars.selectedCars;
+import { RootState } from '../store';
+
+export const selectCars = (state: RootState) => state.cars.items;
+export const selectError = (state: RootState) => state.cars.error;
+export const selectSelectedCar = (state: RootState) => state.cars.selectedCar;
